@@ -1,0 +1,83 @@
+import mysql.connector
+from mysql.connector import Error
+import pandas as pd
+import requests
+import os
+import json
+import pprint
+import requests.exceptions
+
+
+def get_api_response(url, headers, params):
+    try:
+        response = requests.get(url, headers=headers, params=params)
+        response.raise_for_status()
+    
+    except requests.exceptions.HTTPError as errh:
+        return "An Http Error occurred: " + repr(errh)
+    except requests.exceptions.ConnectionError as errc:
+        return "An Error Connecting to the API occurred: " + repr(errc)
+    except requests.exceptions.Timeout as errt:
+        return "A Timeout Error occurred: " + repr(errt)
+    except requests.exceptions.InvalidHeader as erri:
+        return "A Header Error occurred: " + repr(erri)
+    except requests.exceptions.RequestException as err:
+        return "An Unknown Error occurred: " + repr(err)
+        
+    return response.json()
+  
+    stock = str(input())
+    apikey="rrwuwqQ9A24rOR5zRRUI61jSpPSzyJNb1jGG263E"
+    headers = {
+    'x-api-key': apikey
+    }
+    querystring = {"symbols":stock}    
+
+    url = "https://yfapi.net/v6/finance/quote"
+    url_2 = "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols="+stock
+    url_3 = "https://yfapi.net/v11/finance/quoteSummary/" + stock + "?lang=en&region=US&modules=defaultKeyStatistics%2CassetProfile"
+    url_4 = "https://yfapi.net/ws/insights/v1/finance/insights?symbol="+stock 
+
+    
+    response1 = requests.request("GET", url, headers=headers, params=querystring)
+    response2 = requests.request("GET", url_2, headers=headers, params=querystring)
+    response3 = requests.request("GET", url_3, headers=headers, params=querystring)
+    response4 = requests.request("GET", url_4, headers=headers, params=querystring)
+
+    data1 = response1.json()
+    data2 = response2.json()
+    data3 = response3.json()
+    data4 = response4.json()
+    print(data1)
+  
+def get_stock_info(stock):  
+    stock = str(input())
+    apikey="rrwuwqQ9A24rOR5zRRUI61jSpPSzyJNb1jGG263E"
+    headers = {
+    'x-api-key': apikey
+    }
+    querystring = {"symbols":stock}    
+
+    url = "https://yfapi.net/v6/finance/quote"
+    url_2 = "https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols="+stock
+    url_3 = "https://yfapi.net/v11/finance/quoteSummary/" + stock + "?lang=en&region=US&modules=defaultKeyStatistics%2CassetProfile"
+    url_4 = "https://yfapi.net/ws/insights/v1/finance/insights?symbol="+stock 
+
+    
+    response1 = requests.request("GET", url, headers=headers, params=querystring)
+    response2 = requests.request("GET", url_2, headers=headers, params=querystring)
+    response3 = requests.request("GET", url_3, headers=headers, params=querystring)
+    response4 = requests.request("GET", url_4, headers=headers, params=querystring)
+
+    data1 = response1.json()
+    data2 = response2.json()
+    data3 = response3.json()
+    data4 = response4.json()
+    print(data1)
+    
+    stock_json = response.json() 
+    print(stock_json['quoteResponse']['result'][0]["displayName"] + " Price:$" + str(stock_json['quoteResponse']['result'][0]["regularMarketPrice"]))
+
+def exc_handle(url, response_type):
+    json_string = get_api_response(url,response_type)
+    return print(json_string)
