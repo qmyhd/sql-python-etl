@@ -1,3 +1,35 @@
+#Learning Objective
+
+Put into practice using Python to interact and call a public API successfully
+Look at the data within JSON and DataFrames
+Write your data to a local file (JSON)
+Use basic visualization to display information
+Interact with users
+ 
+
+Challenge:
+
+You have seen some examples of how to interact with JSON, CSV and make API Calls. Take some time to explore the YAHOO Finance Guide which shows you endpoints for calling information. Your job is to code a Python Program that does the following things:
+
+ 
+
+Takes user input for a stock (using the Ticker Symbol): IE with the input() command
+You will display back the user: Name Ticker, Full Name of the  Company, Current Price (or last price if after hours), Target Mean Price, Cash on Hand, Profit Margins
+Store the Results Locally in JSON Format with just those items and include a date of when that data was pulled
+Handle Errors (IE, the stock doesn’t exist and/or the API is not returning information)
+https://financeapi.net/Links to an external site.
+
+You will have to read the documentation and figure out which modules to call to get the data that you need. You will need to make more than one call to this API. Use the examples in our Zoom Session to guide you, but the documentation will be enough. Post your code to GitHub.
+
+ 
+
+Bonus –
+
+Use MatPlotLib to chart the historical price of a stock price’s highest value over the past 5 days.
+
+
+
+
 import mysql.connector
 from mysql.connector import Error
 import pandas as pd
